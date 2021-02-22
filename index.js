@@ -36,6 +36,19 @@ class BankModel {
       return bank;
     });
   }
+
+  static delete({ name }) {
+    let deletedBank = null;
+    banksDB = banksDB.filter((bank) => {
+      if (bank.name !== name) {
+        return true;
+      }
+      deletedBank = bank;
+      return false;
+    });
+
+    return deletedBank;
+  }
 }
 
 const viewBanksController = (req, res) => {
@@ -75,7 +88,11 @@ const updateBankController = (req, res) => {
   res.json({ maessage: "update successful", data: updatedBank });
 };
 
-const deleteBankController = (req, res) => {};
+const deleteBankController = (req, res) => {
+  const { name } = req.body;
+  const deletedBank = BankModel.delete({ name });
+  res.json({ message: "bank deleted", data: deletedBank });
+};
 
 server.get("/bank", viewBanksController);
 server.post("/bank", createBankController);
