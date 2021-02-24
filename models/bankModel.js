@@ -1,5 +1,5 @@
 //Bank Model
-let banksDB = require("./db");
+let banksDB = [];
 
 class BankModel {
   constructor({ name, location, branch, phone, address, accountNumber }) {

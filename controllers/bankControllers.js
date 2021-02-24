@@ -1,5 +1,5 @@
 //Controllers
-const BankModel = require("./model");
+const BankModel = require("../models/bankModel");
 
 const viewBanksController = (req, res) => {
   const banks = BankModel.all();
