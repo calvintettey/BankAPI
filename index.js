@@ -2,6 +2,8 @@ const express = require("express");
 
 const bodyParser = require("body-parser");
 
+const mongoose = require("mongoose");
+
 const BankModel = require("./model");
 
 const [
@@ -12,6 +14,11 @@ const [
 ] = require("./controllers");
 
 const server = express();
+
+mongoose.connect("mongodb+srv://calvin:<4K8mTGwUKBnqbG5>@cluster0.jm1ye.mongodb.net/BankAPI?retryWrites=true&w=majority", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 server.use(bodyParser.json());
 
