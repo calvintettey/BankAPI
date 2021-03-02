@@ -32,40 +32,36 @@ const updateBankController = (req, res) => {
     accountNumber,
   } = req.body;
 
-  BankModel.findById(id).then((bank) => {
-    if (bank) {
-      bank.name = name;
-      bank.location = location;
-      bank.branch = branch;
-      bank.phone = phone;
-      bank.address = address;
-      bank.accountNumber = accountNumber;
+  BankModel.findById(id)
+    .then((bank) => {
+      if (bank) {
+        bank.name = name;
+        bank.location = location;
+        bank.branch = branch;
+        bank.phone = phone;
+        bank.address = address;
+        bank.accountNumber = accountNumber;
 
-      bank[0].save();
+        bank[0].save();
 
-      res.json({ message: "Document cannot be found"});
-    }
+        res.json({ message: "Document cannot be found" });
+      }
 
-  res.json({ maessage: "update successful", data: updatedBank });
-
-  }).catch(err => console.log(err));
-
-  // const updatedBank = BankModel.update({
-  //   name,
-  //   location,
-  //   branch,
-  //   phone,
-  //   address,
-  //   accountNumber,
-  // });
-
-  // res.json({ maessage: "update successful", data: updatedBank });
+      res.json({ maessage: "update successful", data: updatedBank });
+    })
+    .catch((err) => console.log(err));
 };
 
 const deleteBankController = (req, res) => {
-  const { name } = req.body;
-  const deletedBank = BankModel.delete({ name });
-  res.json({ message: "bank deleted", data: deletedBank });
+  const { id } = req.body;
+  BankModel.findByIdAndRemove(id).then((deletedBank) => {
+    if (deletedBank) {
+      res.json({ message: "bank deleted", data: deletedBank });
+      return;
+    }
+
+    res.json({ message: "bank not found" });
+  });
 };
 
 module.exports = {
