@@ -56,11 +56,14 @@ const deleteBankController = (req, res) => {
   const { id } = req.body;
   BankModel.findByIdAndRemove(id).then((deletedBank) => {
     if (deletedBank) {
+      AccountModel.deleteMany({ bankId: deletedBank._id })
+        .then((result) => {
+          res.json({ message: "bank not found" }); 
+        })
+        .catch((err) => console.log(err));
       res.json({ message: "bank deleted", data: deletedBank });
       return;
     }
-
-    res.json({ message: "bank not found" });
   });
 };
 
