@@ -7,16 +7,19 @@ const {
   createBankController,
   updateBankController,
   deleteBankController,
+} = require("../controllers/bankControllers");
+
+const {
   createAccountController,
   viewAccountController,
-} = require("../controllers/bankControllers");
+} = require("../controllers/accountControllers");
 
 router.get("/bank", viewBanksController);
 router.post("/bank", createBankController);
 router.put("/bank", updateBankController);
 router.delete("/bank", deleteBankController);
 
-router.post('/accounts', createAccountController)
-router.get('/accounts', viewAccountController)
+router.post("/accounts", createAccountController);
+router.get("/accounts", viewAccountController);
 
 module.exports = router;
