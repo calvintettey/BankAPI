@@ -4,10 +4,9 @@ const bodyParser = require("body-parser");
 
 const mongoose = require("mongoose");
 
-const BankModel = require("./models/bankModel");
+// const BankModel = require("./models/bankModel");
 
-const bankRoutes = require("./routes/bankRoutes")
-
+const bankRoutes = require("./routes/bankRoutes");
 
 const server = express();
 
@@ -21,6 +20,6 @@ mongoose.connect(
 
 server.use(bodyParser.json());
 
-server.use(bankRoutes)
+server.use(bankRoutes);
 
 server.listen(3000, () => console.log("all systems are go!"));

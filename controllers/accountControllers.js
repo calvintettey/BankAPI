@@ -16,12 +16,10 @@ const createAccountController = async (req, res) => {
       bankId,
     }).save();
     res.status(201).json({ message: "Account created", data: result });
-  } catch {
-    error;
-  }
-  {
+  } catch(error){
     res.status(500).json({ message: "Failed to create account", error: error });
   }
+  
 };
 
 const viewAccountController = (req, res) => {
