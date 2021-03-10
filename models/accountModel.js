@@ -5,11 +5,11 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const AccountSchema = new Schema({
-  name: {
+  accountName: {
     type: String,
     required: true,
   },
-  number: {
+  accountNumber: {
     type: String,
     required: true,
   },

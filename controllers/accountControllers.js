@@ -1,15 +1,27 @@
 //Controllers
 const AccountModel = require("../models/accountModel");
+const { validationResult } = require("express-validator");
 
-const createAccountController = (req, res) => {
-  const { name, number, accountType, bankId } = req.body;
-
-  const account = new AccountModel({ name, number, accountType, bankId });
-
-  account.save().then((result) => {
-    if (result) res.json({ message: "Account created", data: result });
-    else res.json({ message: "Failed to create account" });
-  });
+const createAccountController = async (req, res) => {
+  const { accountName, accountNumber, accountType, bankId } = req.body;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  try {
+    const account = await new AccountModel({
+      accountName,
+      accountNumber,
+      accountType,
+      bankId,
+    }).save();
+    res.status(201).json({ message: "Account created", data: result });
+  } catch {
+    error;
+  }
+  {
+    res.status(500).json({ message: "Failed to create account", error: error });
+  }
 };
 
 const viewAccountController = (req, res) => {
