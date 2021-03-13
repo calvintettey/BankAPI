@@ -25,10 +25,6 @@ const bankSchema = new Schema({
     type: String,
     required: true,
   },
-  accountNumber: {
-    type: String,
-    required: true,
-  },
 accounts: [
   {
     accountId: {required: true, type:Schema.Types.ObjectId, ref: "Account"}

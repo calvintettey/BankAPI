@@ -15,17 +15,16 @@ const createAccountController = async (req, res) => {
       accountType,
       bankId,
     }).save();
-    res.status(201).json({ message: "Account created", data: result });
-  } catch(error){
+    res.status(201).json({ message: "Account created!", data: result });
+  } catch (error) {
     res.status(500).json({ message: "Failed to create account", error: error });
   }
-  
 };
 
 const viewAccountController = (req, res) => {
   AccountModel.find()
     .populate("bankId", "name, location, branch")
-    .then((account) => {
+    .then((accounts) => {
       res.json({ data: accounts });
     })
     .catch((err) => console.log(err));

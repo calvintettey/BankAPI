@@ -15,11 +15,19 @@ const {
   viewAccountController,
 } = require("../controllers/accountControllers");
 
+// Bank Routes
 router.get("/bank", viewBanksController);
-router.post("/bank", createBankController);
+router.post("/bank", [
+  body("name").not().isEmpty().withMessage("Name is required"),
+  body("location").not().isEmpty().withMessage("Location is required"),
+  body("branch").not().isEmpty().withMessage("Branch is required"),
+  body("phone").not().isEmpty().withMessage("Phone is required"),
+  body("address").not().isEmpty().withMessage("Address is required")
+], createBankController);
 router.put("/bank", updateBankController);
 router.delete("/bank", deleteBankController);
 
+// Account Routes
 router.post(
   "/accounts",
   [

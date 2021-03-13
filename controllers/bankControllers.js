@@ -1,6 +1,7 @@
 //Controllers
 const BankModel = require("../models/bankModel");
 const AccountModel = require("../models/accountModel");
+const { validationResult } = require("express-validator");
 
 const viewBanksController = async (req, res) => {
   const banks = await BankModel.find();
@@ -8,18 +9,24 @@ const viewBanksController = async (req, res) => {
 };
 
 const createBankController = async (req, res) => {
-  const { name, location, branch, phone, address, accountNumber } = req.body;
+  const { name, location, branch, phone, address } = req.body;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  try {
+    const bank = await new BankModel({
+      name,
+      location,
+      branch,
+      phone,
+      address,
+    }).save();
 
-  const bank = await new BankModel({
-    name,
-    location,
-    branch,
-    phone,
-    address,
-    accountNumber,
-  }).save();
-
-  res.json({ message: "create successful", data: bank });
+    res.status(201).json({ message: "create successful", data: bank });
+  } catch (error) {
+    res.status(500).json({ message: "Failed to create account", error: error });
+  }
 };
 
 const updateBankController = (req, res) => {
@@ -41,7 +48,6 @@ const updateBankController = (req, res) => {
         bank.branch = branch;
         bank.phone = phone;
         bank.address = address;
-        bank.accountNumber = accountNumber;
 
         bank[0].save();
 
