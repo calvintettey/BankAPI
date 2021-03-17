@@ -23,3 +23,4 @@ server.use(bodyParser.json());
 server.use(bankRoutes);
 
 server.listen(3000, () => console.log("all systems are go!"));
+,jgc
