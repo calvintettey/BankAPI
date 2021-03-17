@@ -15,7 +15,7 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
-    account: {
+    accounts: {
         type: Schema.Types.ObjectId,
         ref: "Account",
         required: true,
