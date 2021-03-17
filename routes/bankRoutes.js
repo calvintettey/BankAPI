@@ -31,7 +31,7 @@ router.delete("/bank", deleteBankController);
 router.post(
   "/accounts",
   [
-    body("accountName").not().isEmpty().withMessage("account name is required"),
+    body("accountName").not().isEmpty().withMessage("Account name is required"),
     body("accountNumber")
       .not()
       .isEmpty()

@@ -8,6 +8,9 @@ const mongoose = require("mongoose");
 
 const bankRoutes = require("./routes/bankRoutes");
 
+const userRoutes = require("./routes/userRoutes");
+
+
 const server = express();
 
 mongoose.connect(
@@ -21,5 +24,7 @@ mongoose.connect(
 server.use(bodyParser.json());
 
 server.use(bankRoutes);
+
+server.use(userRoutes)
 
 server.listen(3000, () => console.log("all systems are go!"));
